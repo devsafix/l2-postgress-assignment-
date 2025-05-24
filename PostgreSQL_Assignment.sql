@@ -23,3 +23,13 @@ CREATE TABLE species (
         )
     )
 );
+
+-- Sightings Table
+CREATE TABLE sightings (
+    sighting_id SERIAL PRIMARY KEY,
+    species_id INT REFERENCES species (species_id) ON DELETE CASCADE,
+    ranger_id INT REFERENCES rangers (ranger_id) ON DELETE CASCADE,
+    location VARCHAR(100) NOT NULL,
+    sighting_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    notes TEXT
+);
