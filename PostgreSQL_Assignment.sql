@@ -17,9 +17,7 @@ CREATE TABLE species (
     conservation_status VARCHAR(50) CHECK (
         conservation_status IN (
             'Endangered',
-            'Vulnerable',
-            'Near Threatened',
-            'Least Concern'
+            'Vulnerable'
         )
     )
 );
@@ -53,3 +51,10 @@ INSERT INTO sightings (sighting_id, species_id, ranger_id, location, sighting_ti
 (2, 2, 2, 'Bankwood Area', '2024-05-12 16:20:00', 'Juvenile seen'),
 (3, 3, 3, 'Bamboo Grove East', '2024-05-15 09:10:00', 'Feeding observed'),
 (4, 1, 2, 'Snowfall Pass', '2024-05-18 18:30:00', NULL);
+
+SELECT * FROM rangers;
+SELECT * FROM species;
+SELECT * FROM sightings;
+
+-- Problem 1
+INSERT INTO rangers (ranger_id, name, region) VALUES (4, 'Derek Fox', 'Coastal Plains');
