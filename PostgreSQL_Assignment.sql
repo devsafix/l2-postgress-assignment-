@@ -51,3 +51,23 @@ WHERE
         YEAR
         FROM discovery_date
     ) < 1800;
+
+-- Problem 8 - Label each sighting's time of day as 'Morning', 'Afternoon', or 'Evening'.
+SELECT
+    sighting_id,
+    CASE
+        WHEN EXTRACT(
+            HOUR
+            FROM sighting_time
+        ) < 12 THEN 'Morning'
+        WHEN EXTRACT(
+            HOUR
+            FROM sighting_time
+        ) >= 12
+        AND EXTRACT(
+            HOUR
+            FROM sighting_time
+        ) < 17 THEN 'Afternoon'
+        ELSE 'Evening'
+    END AS time_of_day
+FROM sightings;
