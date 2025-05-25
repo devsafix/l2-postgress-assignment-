@@ -1,6 +1,6 @@
 -- Active: 1747412702955@@localhost@5432@conservation_db
 
--- Problem 1
+-- Problem 1 - Register a new ranger with provided data with name = 'Derek Fox' and region = 'Coastal Plains'
 INSERT INTO
     rangers (ranger_id, name, region)
 VALUES (
@@ -9,14 +9,14 @@ VALUES (
         'Coastal Plains'
     );
 
--- Problem 2
+-- Problem 2 - Count unique species ever sighted.
 SELECT COUNT(DISTINCT species_id) AS unique_species_count
 FROM sightings;
 
--- Problem 3
+-- Problem 3 - Find all sightings where the location includes "Pass".
 SELECT * FROM sightings WHERE location LIKE '%Pass';
 
--- Problem 4
+-- Problem 4 - List each ranger's name and their total number of sightings.
 SELECT r.name AS name, COUNT(s.sighting_id) AS total_sightings
 FROM rangers AS r
     LEFT JOIN sightings AS s ON r.ranger_id = s.ranger_id
@@ -26,14 +26,14 @@ HAVING
     COUNT(s.sighting_id) > 0
 ORDER BY r.name;
 
--- Problem 5
+-- Problem 5 - List species that have never been sighted.
 SELECT common_name
 FROM species
     LEFT JOIN sightings ON species.species_id = sightings.species_id
 WHERE
     sightings.sighting_id IS NULL;
 
--- Problem 6
+-- Problem 6 - Show the most recent 2 sightings.
 SELECT common_name, sighting_time, name
 FROM
     sightings
@@ -42,7 +42,7 @@ FROM
 ORDER BY sighting_time DESC
 LIMIT 2;
 
--- Problem 7
+-- Problem 7 - Update all species discovered before year 1800 to have status 'Historic'.
 UPDATE species
 SET
     conservation_status = 'Historic'
@@ -72,10 +72,12 @@ SELECT
     END AS time_of_day
 FROM sightings;
 
--- Problem 9
+-- Problem 9 - Delete rangers who have never sighted any species.
 DELETE FROM rangers
 WHERE
-    ranger_id NOT IN (
-        SELECT ranger_id
+    NOT EXISTS (
+        SELECT
         FROM sightings
+        WHERE
+            sightings.ranger_id = rangers.ranger_id
     );

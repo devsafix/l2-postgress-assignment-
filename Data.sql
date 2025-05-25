@@ -1,4 +1,5 @@
 -- Active: 1747412702955@@localhost@5432@conservation_db
+
 -- Insert data into rangers
 INSERT INTO
     rangers (ranger_id, name, region)
